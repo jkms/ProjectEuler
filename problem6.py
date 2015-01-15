@@ -18,4 +18,4 @@ print sumsx
 
 answer = sumsx-sums
 
-print answer
+print "the answer is", sumsx, "-", sums, "=", int(answer)
