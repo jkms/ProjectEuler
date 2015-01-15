@@ -18,7 +18,7 @@
 #  MA 02110-1301, USA.
 #  
 #  
-#!/usr/bin/env pythono
+#!/usr/bin/env python
 
 length=4
 
