@@ -18,7 +18,7 @@
 #  MA 02110-1301, USA.
 #  
 #  
-#!/usr/bin/env python
+#!/usr/bin/env pythono
 
 length=4
 
@@ -47,7 +47,7 @@ line.append([1,70,54,71,83,51,54,69,16,92,33,48,61,43,52,1,89,19,67,48])
 def horizonal_product(table):
 	products = []
 	for y in range(len(table)):
-		for x in range(len(table[y])-length):
+		for x in range(len(tableo[y])-length):
 			product = 1
 			for n in range(length):
 				product *= table[y][x+n]
