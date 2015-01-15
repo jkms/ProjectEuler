@@ -1,4 +1,4 @@
-#  problem14.py
+#  problem15.py
 #  
 #  Copyright 2015 John Stafford <john@jkms.me>
 #  
@@ -20,30 +20,24 @@
 #  
 #!/usr/bin/env python
 
-def collatz(number):
-	if number % 2:
-		number = (number*3)+1
-	else:
-		number /= 2
-	return number
+gridsize=20
+grid = []
 
+for y in range(0,gridsize+1):
+	temparray = []
+	for x in range(0,gridsize+1):
+		if y == 0:
+			if x== 0:
+				temparray.append(0)
+			else:
+				temparray.append(1)
+		elif x == 0:
+			temparray.append(grid[0][y])
+		else:
+			value = grid[y-1][x] + temparray[x-1]
+			temparray.append(value)
+	grid.append(temparray)
 
-def test_collatz(maxnumber):
-	startnumber = maxnumber-1
-	maxchain=0
-	actual_chain = []
-	actual_chain.append(1)
-	while startnumber > 1:
-		chain = []
-		number = startnumber
-		while number > 1:
-			chain.append(number)
-			number = collatz(number)
-			if len(chain) > maxchain:
-				actual_chain = chain
-				maxchain = len(chain)
-		startnumber -= 1
-	actual_chain.append(1)
-	return actual_chain
-	
-print "the answer is", test_collatz(1000000)[0]
+print grid
+print "the answer is", grid[gridsize][-1]
+
