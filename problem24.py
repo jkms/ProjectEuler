@@ -72,9 +72,5 @@ def check_string(String="012345679",iteration=1):
 
 #~ print check_string(MyString,100)
 
-for i in range(10):
-	print i, check_string(MyString,i)
-
-for i in range(999995,1000005):
-	print i, check_string(MyString,i)
+print "the answer is", check_string(MyString,1000000)
 	
