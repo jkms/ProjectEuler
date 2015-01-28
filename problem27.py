@@ -34,10 +34,16 @@ def is_prime(value):
 
 def euler_primes(a, b):
     euler_primes=[]
-    for n in range (39):
+    for n in range (1000):
         temp = n ** 2 + n * a + b
         if is_prime(temp):
             euler_primes.append(temp)
     return euler_primes
 
-print euler_primes(1,41)
+primes=[]
+for a in range(-1000,1000):
+    if is_prime(abs(a)):
+        for b in range (-1000,1000):
+            if is_prime(abs(b)):
+                print a, b
+                primes.append([a, b, euler_primes(1,41)])
