@@ -26,24 +26,37 @@ import math
 def is_prime(value):
     """check for primes"""
     return_prime = True
-    for i in xrange(2, int(math.sqrt(value))+1):
+    for i in xrange(2, int(math.sqrt(abs(value)))+1):
         if not value % i:
             return_prime = False
     return return_prime
 
 
-def euler_primes(a, b):
-    euler_primes=[]
-    for n in range (1000):
-        temp = n ** 2 + n * a + b
-        if is_prime(temp):
-            euler_primes.append(temp)
-    return euler_primes
+def euler_primes(n, a, b):
+    return n ** 2 + n * a + b
+    
+base_primes=[]
+for i in range (1000):
+    if is_prime(i):
+        base_primes.append(i)
+        base_primes.append(i*-1)
+base_primes=sorted(base_primes)
 
-primes=[]
-for a in range(-1000,1000):
-    if is_prime(abs(a)):
-        for b in range (-1000,1000):
-            if is_prime(abs(b)):
-                print a, b
-                primes.append([a, b, euler_primes(1,41)])
+quads=[]
+quads.append([0,0])
+for a in base_primes:
+    for b in base_primes:
+        last_prime=True
+        n=0
+        while last_prime == True:
+            temp = euler_primes(n, a, b)
+            #~ print a,b,temp
+            if is_prime(temp):
+                n += 1
+            else:
+                last_prime = False
+                if n > quads[-1][0]:
+                    quads.append([n, a*b])
+                break
+
+print "the answer is", quads[-1][1]
