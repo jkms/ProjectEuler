@@ -32,24 +32,23 @@ def is_prime(value):
     return return_prime
 
 
-def get_next_digit(numerator, denomerator):
+def get_next_digit(numerator, denominator):
     """Get the next digit"""
 
-    product = ''
     padding = ''
 
-    if numerator < denomerator:
-        numerator *= 10 ** len(str(denomerator))
+    if numerator < denominator:
+        numerator *= 10 ** len(str(denominator))
         padding = "0"
 
-    product = str(int(numerator / denomerator))
-    padding = padding * ((len(str(denomerator)) -1) - (len(product)-1))
+    product = str(int(numerator / denominator))
+    padding = padding * ((len(str(denominator)) -1) - (len(product)-1))
     product = padding + product
 
-    return product, int(numerator % denomerator)
+    return product, int(numerator % denominator)
 
 
-def get_division(denominator, length=10, numerator=1):
+def get_division(denominator, length=5000, numerator=1):
     """Get a sequence of digits"""
 
     my_decimal = ""
@@ -62,6 +61,58 @@ def get_division(denominator, length=10, numerator=1):
     return my_decimal
 
 
-for i in range(1, 100):
+def get_products(value):
+    """Get list of products"""
+
+    i = 2
+    products_return = [value]
+    while i < products_return[-1]:
+        if not value % i:
+            products_return.append(i)
+            products_return.append(value/i)
+        i += 1
+    products_return.remove(value)
+    return sorted(products_return, reverse=True)
+
+
+def find_pattern(haystack, find_length):
+    """Find a pattern in a haystack"""
+
+    start_point = 0
+    found_pattern = False
+    while not found_pattern:
+        needle = haystack[start_point:start_point+find_length]
+        number_repeats = len(haystack)-start_point
+        number_repeats -= number_repeats % len(needle)
+        number_repeats /= len(needle)
+        if needle * number_repeats == haystack[start_point:start_point+(find_length * number_repeats)]:
+            return haystack[start_point:start_point+find_length]
+            found_pattern = True
+        if start_point >= (len(haystack) - len(needle))/2:
+            return None
+            break
+        start_point+=1
+
+
+repeating = []
+for i in range(1, 1000):
     if is_prime(i):
-        print "1/"+str(i)+"=", get_division(i, 100)
+        print i
+        pattern_found = False
+        temp = get_division(i, i  *2)
+        pattern_length = 2
+        while not pattern_found:
+            pattern_found = False
+            pattern = ''
+            pattern = find_pattern(temp, pattern_length)
+            if pattern:
+                pattern_found = True
+                repeating.append([i, pattern_length, pattern])
+                break
+            pattern_length += 1
+
+
+repeating = sorted(repeating, key=lambda x: x[1])
+
+print repeating[-1][2]
+print "the answer is", repeating[-1][0], "(it has a", repeating[-1][1], "digit reciprocal cycle)"
