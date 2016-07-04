@@ -18,9 +18,10 @@ def gen_pandig(i):
     return sorted(result,reverse=True)
 
 def main():
-    for i in range(7,2,-1):
-        for pan in gen_pandig(i):
-            if is_prime(pan):
-                return pan
+    for i in range(9,2,-1):
+        if not sum(range(1,i+1)) % 3 == 0: # quickly check if perms are div/3
+            for pan in gen_pandig(i):
+                if is_prime(pan):
+                    return pan
 
 print "the answer is", main()
